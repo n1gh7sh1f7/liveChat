@@ -1,20 +1,26 @@
 {
-  "dependencies": {
-    "@sap/xsjs": "1.13.1",
-    "@sap/xsenv": "1.2.6"
-  },
-  "devDependencies": {
-    "@sap/xsjs-test": "2.0.2"
-  },
-  "files": [],
-  "main": "server.js",
-  "name": "js",
-  "scripts": {
-    "start": "node server.js",
-    "test": "node testrun.js"
-  },
-  "engines": {
-    "node": "6.x"
-  },
-  "version": "1.0.0"
+	"dependencies": {
+		"@sap/xsjs": "1.13.1",
+		"@sap/xsenv": "1.2.6",
+		"@sap/textbundle": "latest",
+		"express": "~4.15",
+		"passport": "~0.3.2",
+		"async": "latest",
+		"ws": "1.1.1",
+		"accept-language": "~2.0.16"
+	},
+	"devDependencies": {
+		"@sap/xsjs-test": "2.0.2"
+	},
+	"files": [],
+	"main": "server.js",
+	"name": "js",
+	"scripts": {
+		"start": "node server.js",
+		"test": "node testrun.js"
+	},
+	"engines": {
+		"node": "6.x"
+	},
+	"version": "1.0.0"
 }
