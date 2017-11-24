@@ -2,7 +2,10 @@
 //To use a javascript controller its name must end with .controller.js
 sap.ui.controller("sap.xs.chat.view.App", {
 	onInit: function() {
+		console.log(sap.ui.getCore().getModel("chatModel").getData()); 
+		var controller = this;
 		this.getView().addStyleClass("sapUiSizeCompact"); // make everything inside this View appear in Compact mode
+		
 		// connection opened
 		connection.attachOpen(function(oControlEvent) {
 			sap.m.MessageToast.show("connection opened");
@@ -12,6 +15,9 @@ sap.ui.controller("sap.xs.chat.view.App", {
 			var oModel = sap.ui.getCore().getModel("chatModel");
 			var result = oModel.getData();
 			var data = jQuery.parseJSON(oControlEvent.getParameter("data"));
+			if(data.user !== result.user){
+				controller.notify(data.user + ": " + data.text);
+			}
 			msg = data.user + ": " + data.text;
 			lastInfo = result.chat;
 			if (lastInfo.length > 0) {
@@ -62,6 +68,23 @@ sap.ui.controller("sap.xs.chat.view.App", {
 		} else {
 			sap.m.MessageBox.alert(oError.response.statusText);
 			return;
+		}
+	},
+	notify: function(body) {
+		var notification;
+		if (!("Notification" in window)) {
+			sap.m.MessageBox.alert("This browser does not support desktop notification");
+		}
+		else if (Notification.permission === "granted") {
+			notification = new Notification(body);
+		}
+		else if (Notification.permission !== "denied") {
+			Notification.requestPermission().then(function(permission) {
+				// If the user accepts, let's create a notification
+				if (permission === "granted") {
+					notification = new Notification(body);
+				}
+			});
 		}
 	}
 });
